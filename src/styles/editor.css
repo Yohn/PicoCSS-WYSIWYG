@@ -1,0 +1,137 @@
+/* Editor Container */
+.editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--pico-accent-bg-color);
+  border: 1px solid var(--pico-form-element-border-color);
+  border-bottom: none;
+  border-radius: var(--pico-border-radius) var(--pico-border-radius) 0 0;
+}
+
+.toolbar-group {
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* Editor Content Area */
+.editor-content {
+  min-height: 300px;
+  padding: 1rem;
+  background-color: var(--pico-background);
+  border: 1px solid var(--pico-form-element-border-color);
+  border-radius: 0 0 var(--pico-border-radius) var(--pico-border-radius);
+  overflow-y: auto;
+}
+
+.editor-content:focus {
+  outline: none;
+  border-color: var(--pico-primary);
+}
+
+.editor-content.showing-source {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+/* Dropdown Menus */
+.editor-toolbar details {
+  position: relative;
+  margin: 0;
+}
+
+.editor-toolbar details summary {
+  padding: 0.5rem;
+  line-height: 1;
+}
+
+.editor-toolbar details ul {
+  margin: 0;
+  padding: 0.5rem;
+  border-radius: var(--pico-border-radius);
+  /*background: var(--pico-background); */
+  border: 1px solid var(--pico-form-element-border-color);
+}
+
+.editor-toolbar details ul button {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  margin: 0;
+  border: none;
+  background: none;
+  color: var(--pico-color);
+}
+
+.editor-toolbar details ul button:hover {
+  background: var(--pico-background-alt);
+}
+
+/* Color Menu */
+.color-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  min-width: 200px;
+}
+
+/* Emoji Menu */
+.emoji-menu {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.25rem;
+  min-width: 200px;
+}
+
+.emoji-btn {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.emoji-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Card Styles */
+.card {
+  border: 1px solid var(--pico-form-element-border-color);
+  border-radius: var(--pico-border-radius);
+  margin: 1rem 0;
+}
+
+.card header {
+  padding: 1rem;
+  background-color: var(--pico-background-alt);
+  border-bottom: 1px solid var(--pico-form-element-border-color);
+}
+
+.card .card-body {
+  padding: 1rem;
+}
+
+.card footer {
+  padding: 1rem;
+  background-color: var(--pico-background-alt);
+  border-top: 1px solid var(--pico-form-element-border-color);
+}
+
+/* Accordion Styles */
+.accordion {
+  border: 1px solid var(--pico-form-element-border-color);
+  border-radius: var(--pico-border-radius);
+  margin: 1rem 0;
+}
+
+.accordion summary {
+  padding: 1rem;
+  background-color: var(--pico-background-alt);
+  cursor: pointer;
+}
+
+.accordion-content {
+  padding: 1rem;
+}

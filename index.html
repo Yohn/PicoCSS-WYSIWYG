@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PicoCSS WYSIWYG Editor</title>
+    <!-- PicoCSS from CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.3/css/pico.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="./src/styles/main.css">
+  </head>
+  <body>
+    <main class="container">
+      <article id="app"></article>
+    </main>
+    <!-- Third party libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.8/dist/purify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/turndown@7.1.2/dist/turndown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.3/docs/js/Modal.js"></script>
+    <!-- Editor modules -->
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
