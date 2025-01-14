@@ -4,7 +4,6 @@ export function createImageModal() {
   modal.innerHTML = `
     <article>
       <header>
-        <button aria-label="Close" rel="prev" onclick="toggleModal(event);"></button>
         <h3>Insert Image</h3>
       </header>
       <input type="file" accept="image/*" id="imageUpload">
@@ -23,7 +22,6 @@ export function createTableModal() {
   modal.innerHTML = `
     <article>
       <header>
-        <button aria-label="Close" rel="prev" onclick="toggleModal(event);"></button>
         <h3>Insert Table</h3>
       </header>
       <label>
@@ -50,7 +48,6 @@ export function createLinkModal() {
   modal.innerHTML = `
     <article>
       <header>
-        <button aria-label="Close" rel="prev" onclick="toggleModal(event);"></button>
         <h3>Insert Link</h3>
       </header>
       <input type="url" id="linkUrl" placeholder="https://">

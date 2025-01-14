@@ -4,7 +4,6 @@ export function createCardModal() {
   modal.innerHTML = `
     <article>
       <header>
-        <button aria-label="Close" rel="prev" onclick="toggleModal(event);"></button>
         <h3>Insert Card</h3>
       </header>
       <input type="text" id="cardHeader" placeholder="Card Header">

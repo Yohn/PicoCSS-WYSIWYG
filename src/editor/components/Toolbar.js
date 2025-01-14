@@ -30,7 +30,7 @@ export function createToolbar() {
   toolbar.innerHTML = `
     <div role="group">
       <details class="dropdown">
-        <summary class="outline" role="button" aria-haspopup="listbox" title="Header Text, Quotes, Paragraph tags" data-title="Header Text, Quotes, Paragraph tags">Header &amp; Blocks</summary>
+        <summary class="outline" role="button" aria-haspopup="listbox"><span data-placement="bottom" data-tooltip="Header Text, Quotes, Paragraph tags">Header &amp; Blocks</span></summary>
         <ul role="listbox">
           <li><a href="javascript:void(0);" data-command="formatBlock" data-value="h1"><h1>Heading 1</h1></a></li>
           <li><a href="javascript:void(0);" data-command="formatBlock" data-value="h2"><h2>Heading 2</h2></a></li>
@@ -39,21 +39,21 @@ export function createToolbar() {
           <li><a href="javascript:void(0);" data-command="formatBlock" data-value="h5"><h5>Heading 5</h5></a></li>
           <li><a href="javascript:void(0);" data-command="formatBlock" data-value="h6"><h6>Heading 6</h6></a></li>
           <li><a href="javascript:void(0);" data-command="formatBlock" data-value="p">Paragraph</a></li>
-          <li><a href="javascript:void(0);" data-command="formatBlock" data-value="blockquote">Blockquote</a></li>
+          <li><a href="javascript:void(0);" data-command="formatBlock" data-value="blockquote"><blockquote style="margin-block:0;">Blockquote</blockquote></a></li>
         </ul>
       </details>
 
       <details class="dropdown">
-        <summary class="outline" role="button" aria-haspopup="listbox" title="Change Font Style"><i class="bi bi-fonts"></i></summary>
+        <summary class="outline" role="button" aria-haspopup="listbox"><span data-placement="bottom" data-tooltip="Change font style"><i class="bi bi-fonts"></i></span></summary>
         <ul role="listbox">
-          <li><a href="javascript:void(0);" data-command="fontName" data-value="Arial">Arial</a></li>
-          <li><a href="javascript:void(0);" data-command="fontName" data-value="Times New Roman">Times New Roman</a></li>
-          <li><a href="javascript:void(0);" data-command="fontName" data-value="Courier New">Courier New</a></li>
+          <li><a href="javascript:void(0);" data-command="fontName" data-value="Arial" style="font-family:Arial;">Arial</a></li>
+          <li><a href="javascript:void(0);" data-command="fontName" data-value="Times New Roman" style="font-family:Times New Roman;">Times New Roman</a></li>
+          <li><a href="javascript:void(0);" data-command="fontName" data-value="Courier New" style="font-family:Courier New;">Courier New</a></li>
         </ul>
       </details>
 
       <details class="dropdown">
-        <summary class="outline" role="button" aria-haspopup="listbox" title="Insert Emoji" data-title="Insert Emoji"><i class="bi bi-emoji-smile"></i></summary>
+        <summary class="outline" role="button" aria-haspopup="listbox"><span data-placement="bottom" data-tooltip="Insert Emoji"><i class="bi bi-emoji-smile"></i></span></summary>
         <ul role="listbox" class="emoji-menu" dir="rtl">
           ${createEmojiPicker().innerHTML}
         </ul>
@@ -63,28 +63,28 @@ export function createToolbar() {
       <ul>
         <li>
           <div role="group">
-            <button class="outline" data-command="bold" title="Bold" data-title="Bold"><i class="bi bi-type-bold"></i></button>
-            <button class="outline" data-command="italic" title="Italic" data-title="Italic"><i class="bi bi-type-italic"></i></button>
-            <button class="outline" data-command="underline" title="Underline" data-title="Underline"><i class="bi bi-type-underline"></i></button>
+            <button class="outline" data-command="bold" data-tooltip="Bold"><i class="bi bi-type-bold"></i></button>
+            <button class="outline" data-command="italic" data-tooltip="Italic"><i class="bi bi-type-italic"></i></button>
+            <button class="outline" data-command="underline" data-tooltip="Underline"><i class="bi bi-type-underline"></i></button>
           </div>
         </li>
       </ul>
       <ul>
         <li>
           <div role="group">
-            <button class="outline" data-command="justifyLeft" title="Align Left" data-title="Align Left"><i class="bi bi-text-left"></i></button>
-            <button class="outline" data-command="justifyCenter" title="Align Center" data-title="Align Center"><i class="bi bi-text-center"></i></button>
-            <button class="outline" data-command="justifyRight" title="Align Right" data-title="Align Right"><i class="bi bi-text-right"></i></button>
-            <button class="outline" data-command="justifyFull" title="Justify" data-title="Justify"><i class="bi bi-justify"></i></button>
+            <button class="outline" data-command="justifyLeft" data-tooltip="Align Left"><i class="bi bi-text-left"></i></button>
+            <button class="outline" data-command="justifyCenter" data-tooltip="Align Center"><i class="bi bi-text-center"></i></button>
+            <button class="outline" data-command="justifyRight" data-tooltip="Align Right"><i class="bi bi-text-right"></i></button>
+            <button class="outline" data-command="justifyFull" data-tooltip="Justify"><i class="bi bi-justify"></i></button>
           </div>
         </li>
       </ul>
       <ul>
         <li>
           <div role="group">
-            <button class="outline" data-command="insertUnorderedList" title="Bullet List" data-title="Bullet List"><i class="bi bi-list-ul"></i></button>
-            <button class="outline" data-command="insertOrderedList" title="Numbered List" data-title="Numbered List"><i class="bi bi-list-ol"></i></button>
-            <button class="outline" data-command="insertHorizontalRule" title="Horizontal Line" data-title="Horizontal Line"><i class="bi bi-dash-lg"></i></button>
+            <button class="outline" data-command="insertUnorderedList" data-tooltip="Bullet List"><i class="bi bi-list-ul"></i></button>
+            <button class="outline" data-command="insertOrderedList" data-tooltip="Numbered List"><i class="bi bi-list-ol"></i></button>
+            <button class="outline" data-command="insertHorizontalRule" data-tooltip="Horizontal Line"><i class="bi bi-dash-lg"></i></button>
           </div>
         </li>
       </ul>
@@ -93,26 +93,26 @@ export function createToolbar() {
       <ul>
         <li>
           <div role="group">
-            <button class="outline" data-action="viewSource" title="View Source" data-title="View Source"><i class="bi bi-code-slash"></i></button>
+            <button class="outline" data-action="viewSource" data-tooltip="View Source"><i class="bi bi-code-slash"></i></button>
           </div>
         </li>
       </ul>
       <ul>
         <li>
           <div role="group">
-            <button class="outline" data-action="insertCard" title="Insert Card" data-title="Insert Card"><i class="bi bi-card-text"></i></button>
-            <button class="outline" data-action="insertAccordion" title="Insert Accordion" data-title="Insert Accordion"><i class="bi bi-chevron-down"></i></button>
-            <button class="outline" data-action="insertImage" title="Insert Image" data-title="Insert Image"><i class="bi bi-image"></i></button>
-            <button class="outline" data-action="insertTable" title="Insert Table" data-title="Insert Table"><i class="bi bi-table"></i></button>
-            <button class="outline" data-action="insertLink" title="Insert Link" data-title="Insert Link"><i class="bi bi-link"></i></button>
+            <button class="outline" data-action="insertCard" data-tooltip="Insert Card"><i class="bi bi-card-text"></i></button>
+            <button class="outline" data-action="insertAccordion" data-tooltip="Insert Accordion"><i class="bi bi-chevron-down"></i></button>
+            <button class="outline" data-action="insertImage" data-tooltip="Insert Image"><i class="bi bi-image"></i></button>
+            <button class="outline" data-action="insertTable" data-tooltip="Insert Table"><i class="bi bi-table"></i></button>
+            <button class="outline" data-action="insertLink" data-tooltip="Insert Link"><i class="bi bi-link"></i></button>
           </div>
         </li>
       </ul>
       <ul>
         <li>
           <div role="group">
-            <button class="outline" data-action="undo" title="Undo" data-title="Undo"><i class="bi bi-arrow-counterclockwise"></i></button>
-            <button class="outline" data-action="redo" title="Redo" data-title="Redo"><i class="bi bi-arrow-clockwise"></i></button>
+            <button class="outline" data-action="undo" data-tooltip="Undo"><i class="bi bi-arrow-counterclockwise"></i></button>
+            <button class="outline" data-action="redo" data-tooltip="Redo"><i class="bi bi-arrow-clockwise"></i></button>
           </div>
         </li>
       </ul>

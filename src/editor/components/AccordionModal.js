@@ -4,7 +4,6 @@ export function createAccordionModal() {
   modal.innerHTML = `
     <article>
       <header>
-        <button aria-label="Close" rel="prev" onclick="toggleModal(event);"></button>
         <h3>Insert Accordion</h3>
       </header>
       <input type="text" id="accordionTitle" placeholder="Accordion Title">
