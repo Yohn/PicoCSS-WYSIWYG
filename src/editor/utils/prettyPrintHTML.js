@@ -1,5 +1,6 @@
 // Helper method: Pretty print HTML
-export function prettyPrintHTML(html) {
+export // Helper method: Pretty print HTML
+function prettyPrintHTML(html) {
   // Remove any leading/trailing whitespace
   html = html.trim();
 

@@ -1,13 +1,312 @@
-import DOMPurify from 'dompurify';
-import TurndownService from 'turndown';
-import { createToolbar } from './components/Toolbar.js';
-import { createImageModal, createTableModal, createLinkModal } from './components/Modals.js';
-import { createCardModal } from './components/CardModal.js';
-import { createAccordionModal } from './components/AccordionModal.js';
-import { History } from './utils/history.js';
-import { prettyPrintHTML } from './utils/prettyPrintHTML.js';
+function createEmojiPicker() {
+  const picker = document.createElement('div');
+  picker.className = 'emoji-picker dropdown-menu';
 
-export class WYSIWYGEditor {
+  const commonEmojis = ['😀', '😂', '🥰', '😎', '🤔', '👍', '👎', '❤️', '⭐', '🔥'];
+
+  picker.innerHTML = commonEmojis
+    .map(emoji => `<button class="emoji-btn" data-emoji="${emoji}">${emoji}</button>`)
+    .join('');
+
+  return picker;
+}
+
+function createToolbar() {
+	//const toolbar = document.createElement('div');
+	//toolbar.className = 'editor-toolbar';
+	const toolbar = document.createElement('header');
+	toolbar.innerHTML = `
+		<div role="group">
+			<details class="dropdown">
+				<summary class="outline" role="button" aria-haspopup="listbox"><span data-placement="bottom" data-tooltip="Header Text, Quotes, Paragraph tags">Header &amp; Blocks</span></summary>
+				<ul role="listbox">
+					<li><a href="javascript:void(0);" data-command="formatBlock" data-value="h1"><h1>Heading 1</h1></a></li>
+					<li><a href="javascript:void(0);" data-command="formatBlock" data-value="h2"><h2>Heading 2</h2></a></li>
+					<li><a href="javascript:void(0);" data-command="formatBlock" data-value="h3"><h3>Heading 3</h3></a></li>
+					<li><a href="javascript:void(0);" data-command="formatBlock" data-value="h4"><h4>Heading 4</h4></a></li>
+					<li><a href="javascript:void(0);" data-command="formatBlock" data-value="h5"><h5>Heading 5</h5></a></li>
+					<li><a href="javascript:void(0);" data-command="formatBlock" data-value="h6"><h6>Heading 6</h6></a></li>
+					<li><a href="javascript:void(0);" data-command="formatBlock" data-value="p">Paragraph</a></li>
+					<li><a href="javascript:void(0);" data-command="formatBlock" data-value="blockquote"><blockquote style="margin-block:0;">Blockquote</blockquote></a></li>
+				</ul>
+			</details>
+
+			<details class="dropdown">
+				<summary class="outline" role="button" aria-haspopup="listbox"><span data-placement="bottom" data-tooltip="Change font style"><i class="bi bi-fonts"></i></span></summary>
+				<ul role="listbox">
+					<li><a href="javascript:void(0);" data-command="fontName" data-value="Arial" style="font-family:Arial;">Arial</a></li>
+					<li><a href="javascript:void(0);" data-command="fontName" data-value="Times New Roman" style="font-family:Times New Roman;">Times New Roman</a></li>
+					<li><a href="javascript:void(0);" data-command="fontName" data-value="Courier New" style="font-family:Courier New;">Courier New</a></li>
+				</ul>
+			</details>
+
+			<details class="dropdown">
+				<summary class="outline" role="button" aria-haspopup="listbox"><span data-placement="bottom" data-tooltip="Insert Emoji"><i class="bi bi-emoji-smile"></i></span></summary>
+				<ul role="listbox" class="emoji-menu" dir="rtl">
+					${createEmojiPicker().innerHTML}
+				</ul>
+			</details>
+		</div>
+		<nav>
+			<ul>
+				<li>
+					<div role="group">
+						<button class="outline" data-command="bold" data-tooltip="Bold"><i class="bi bi-type-bold"></i></button>
+						<button class="outline" data-command="italic" data-tooltip="Italic"><i class="bi bi-type-italic"></i></button>
+						<button class="outline" data-command="underline" data-tooltip="Underline"><i class="bi bi-type-underline"></i></button>
+					</div>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<div role="group">
+						<button class="outline" data-command="justifyLeft" data-tooltip="Align Left"><i class="bi bi-text-left"></i></button>
+						<button class="outline" data-command="justifyCenter" data-tooltip="Align Center"><i class="bi bi-text-center"></i></button>
+						<button class="outline" data-command="justifyRight" data-tooltip="Align Right"><i class="bi bi-text-right"></i></button>
+						<button class="outline" data-command="justifyFull" data-tooltip="Justify"><i class="bi bi-justify"></i></button>
+					</div>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<div role="group">
+						<button class="outline" data-command="insertUnorderedList" data-tooltip="Bullet List"><i class="bi bi-list-ul"></i></button>
+						<button class="outline" data-command="insertOrderedList" data-tooltip="Numbered List"><i class="bi bi-list-ol"></i></button>
+						<button class="outline" data-command="insertHorizontalRule" data-tooltip="Horizontal Line"><i class="bi bi-dash-lg"></i></button>
+					</div>
+				</li>
+			</ul>
+		</nav>
+		<nav>
+			<ul>
+				<li>
+					<div role="group">
+						<button class="outline" data-action="viewSource" data-tooltip="View Source"><i class="bi bi-code-slash"></i></button>
+					</div>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<div role="group">
+						<button class="outline" data-action="insertCard" data-tooltip="Insert Card"><i class="bi bi-card-text"></i></button>
+						<button class="outline" data-action="insertAccordion" data-tooltip="Insert Accordion"><i class="bi bi-chevron-down"></i></button>
+						<button class="outline" data-action="insertImage" data-tooltip="Insert Image"><i class="bi bi-image"></i></button>
+						<button class="outline" data-action="insertTable" data-tooltip="Insert Table"><i class="bi bi-table"></i></button>
+						<button class="outline" data-action="insertLink" data-tooltip="Insert Link"><i class="bi bi-link"></i></button>
+					</div>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<div role="group">
+						<button class="outline" data-action="undo" data-tooltip="Undo"><i class="bi bi-arrow-counterclockwise"></i></button>
+						<button class="outline" data-action="redo" data-tooltip="Redo"><i class="bi bi-arrow-clockwise"></i></button>
+					</div>
+				</li>
+			</ul>
+		</nav>
+	`;
+	return toolbar;
+}
+
+function createImageModal() {
+  const modal = document.createElement('dialog');
+  modal.classList.add('modal-lg')
+  modal.innerHTML = `
+    <article>
+      <header>
+        <h3>Insert Image</h3>
+      </header>
+      <input type="file" accept="image/*" id="imageUpload">
+      <footer>
+        <button id="cancelImage">Cancel</button>
+        <button id="insertImageBtn">Insert</button>
+      </footer>
+    </article>
+  `;
+  return modal;
+}
+
+function createTableModal() {
+  const modal = document.createElement('dialog');
+  modal.classList.add('modal-lg')
+  modal.innerHTML = `
+    <article>
+      <header>
+        <h3>Insert Table</h3>
+      </header>
+      <label>
+        Rows: <input type="number" id="tableRows" value="3" min="1">
+      </label>
+      <label>
+        Columns: <input type="number" id="tableCols" value="3" min="1">
+      </label>
+      <label>
+        <input type="checkbox" id="stripedTable"> Striped Table
+      </label>
+      <footer>
+        <button id="cancelTable">Cancel</button>
+        <button id="insertTableBtn">Insert</button>
+      </footer>
+    </article>
+  `;
+  return modal;
+}
+
+function createLinkModal() {
+  const modal = document.createElement('dialog');
+  modal.classList.add('modal-lg')
+  modal.innerHTML = `
+    <article>
+      <header>
+        <h3>Insert Link</h3>
+      </header>
+      <input type="url" id="linkUrl" placeholder="https://">
+      <input type="text" id="linkText" placeholder="Link Text">
+      <footer>
+        <button id="cancelLink">Cancel</button>
+        <button id="insertLinkBtn">Insert</button>
+      </footer>
+    </article>
+  `;
+  return modal;
+}
+
+function createCardModal() {
+  const modal = document.createElement('dialog');
+  modal.classList.add('modal-lg')
+  modal.innerHTML = `
+    <article>
+      <header>
+        <h3>Insert Card</h3>
+      </header>
+      <input type="text" id="cardHeader" placeholder="Card Header">
+      <textarea id="cardBody" placeholder="Card Body" rows="4"></textarea>
+      <input type="text" id="cardFooter" placeholder="Card Footer">
+      <footer>
+        <button id="cancelCard">Cancel</button>
+        <button id="insertCardBtn">Insert</button>
+      </footer>
+    </article>
+  `;
+  return modal;
+}
+
+function createAccordionModal() {
+  const modal = document.createElement('dialog');
+  modal.classList.add('modal-lg')
+  modal.innerHTML = `
+    <article>
+      <header>
+        <h3>Insert Accordion</h3>
+      </header>
+      <input type="text" id="accordionTitle" placeholder="Accordion Title">
+      <textarea id="accordionContent" placeholder="Accordion Content" rows="4"></textarea>
+      <footer>
+        <button id="cancelAccordion">Cancel</button>
+        <button id="insertAccordionBtn">Insert</button>
+      </footer>
+    </article>
+  `;
+  return modal;
+}
+
+class History {
+  constructor() {
+    this.items = [];
+    this.index = -1;
+  }
+
+  push(content) {
+    this.index++;
+    this.items = this.items.slice(0, this.index);
+    this.items.push(content);
+  }
+
+  undo() {
+    if (this.index > 0) {
+      this.index--;
+      return this.items[this.index];
+    }
+    return null;
+  }
+
+  redo() {
+    if (this.index < this.items.length - 1) {
+      this.index++;
+      return this.items[this.index];
+    }
+    return null;
+  }
+}
+
+// Helper method: Pretty print HTML
+function prettyPrintHTML(html) {
+  // Remove any leading/trailing whitespace
+  html = html.trim();
+
+  // If the HTML is empty, return empty string
+  if (!html) return '';
+
+  function format(node, level) {
+    let indentBefore = new Array(level++ + 1).join('  ');
+    let indentAfter = new Array(level - 1).join('  ');
+    let text = '';
+
+    // Handle text nodes
+    if (node.nodeType === 3) {
+      let content = node.textContent.trim();
+      return content ? indentBefore + content + '\n' : '';
+    }
+
+    // Handle element nodes
+    if (node.nodeType === 1) {
+      // Skip the wrapper div we used for parsing
+      if (node === parser && node.children.length === 1) {
+        return Array.from(node.childNodes)
+          .map(child => format(child, level - 1))
+          .join('');
+      }
+
+      text += indentBefore + '<' + node.nodeName.toLowerCase();
+
+      // Add attributes
+      Array.from(node.attributes).forEach(attr => {
+        text += ' ' + attr.name + '="' + attr.value + '"';
+      });
+
+      if (node.childNodes.length === 0) {
+        // Self-closing tags
+        text += ' />\n';
+      } else {
+        text += '>\n';
+
+        // Process child nodes
+        Array.from(node.childNodes).forEach(child => {
+          text += format(child, level);
+        });
+
+        text += indentAfter + '</' + node.nodeName.toLowerCase() + '>\n';
+      }
+
+      return text;
+    }
+
+    return '';
+  }
+
+  // Create a temporary container for parsing
+  const parser = document.createElement('div');
+  parser.innerHTML = html;
+
+  // Process all root nodes
+  return Array.from(parser.childNodes)
+    .map(node => format(node, 0))
+    .join('')
+    .trim();
+}
+
+class WYSIWYGEditor {
   constructor(container) {
     this.container = container;
     this.history = new History();

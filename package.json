@@ -1,6 +1,6 @@
 {
   "name": "@yohns/picocss-wysiwyg",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "sass": "sass --watch src/styles/main.scss:src/styles/main.css",
@@ -9,11 +9,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "sass": "^1.69.7",
+    "sass": "^1.83.4",
     "vite": "^5.4.2"
   },
   "dependencies": {
-    "turndown": "^7.2.0",
-    "dompurify": "^3.2.3"
+    "dompurify": "^3.2.3",
+    "turndown": "^7.2.0"
   }
 }
